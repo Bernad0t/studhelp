@@ -1,9 +1,9 @@
 import asyncio
-from asyncio import WindowsSelectorEventLoopPolicy
+# from asyncio import WindowsSelectorEventLoopPolicy
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from dotenv import load_dotenv
 
-asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())
+# asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())
 load_dotenv()
 
 #DATABASE
