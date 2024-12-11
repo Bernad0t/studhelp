@@ -1,0 +1,32 @@
+# Игнорируем системные файлы
+.git
+.gitignore
+*.DS_Store
+*.env
+
+# Игнорируем папки виртуальной среды Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Игнорируем зависимости Node.js
+node_modules/
+npm-debug.log
+package-lock.json
+
+# Игнорируем сборку фронтенда при использовании React/Vue/Angular
+dist/
+build/
+public/
+*.log
+
+# Игнорируем временные файлы и директории
+tmp/
+temp/
+*.tmp
+.idea/
+.vscode/
+
+# игнорируем yml-файлы
+docker-compose.yml
