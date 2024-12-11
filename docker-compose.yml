@@ -1,3 +1,5 @@
+version: '3.8'
+
 networks:
   dev:
 
@@ -14,16 +16,26 @@ services:
       - frontend
     networks:
       - dev
-    
 
   backend:
     build:
       context: ./python_files
     networks:
       - dev
+    environment:
+      DATABASE_URL: postgres://postgres:asX77hiv-14@host.docker.internal:5432/stud
 
   frontend:
     build:
       context: ./frontend
     networks:
       - dev
+
+  db:
+    image: postgres:latest
+    networks:
+      - dev
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: asX77hiv-14
+      POSTGRES_DB: stud
