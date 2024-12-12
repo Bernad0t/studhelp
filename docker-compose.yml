@@ -1,11 +1,9 @@
-version: '3.8'
-
 networks:
   dev:
 
 services:
   nginx:
-    image: nginx:stable-alpine
+    image: nginx:slim
     ports:
       - "8080:80"
     volumes:
@@ -18,6 +16,7 @@ services:
       - dev
 
   backend:
+    container_name: backend
     build:
       context: ./python_files
     networks:
