@@ -3,7 +3,7 @@ import json
 from starlette.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 
-from db.queryes.students import get_students, StudentsDTO, set_student, delete_student, update_student
+from db.queryes.students import get_students, StudentsDTO, set_student, delete_student, update_student, set_students
 
 app = FastAPI(
     title="My App",
@@ -14,7 +14,7 @@ app = FastAPI(
     redoc_url=None
 )
 
-origins = ["http://localhost:3000", "http://localhost:3001"]
+origins = ["http://localhost:3000", "http://localhost:8080", "http://frontend:8080"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -25,14 +25,12 @@ app.add_middleware(
 
 @app.on_event("startup")
 async def startup():
-    print("start")
+    await set_students()
 
 
 @app.get("/")
 async def get_students_router(page: int, per_page: int, search_template: str, order_by: str):
     result = await get_students(page, per_page, json.loads(search_template), order_by)
-    # if len(order_by) != 0:
-    #     result["students"].sort(key=lambda student: getattr(student, order_by))
     return json.dumps({"number_students": result["number_students"], "students":
             [StudentsDTO.model_validate(i, from_attributes=True).model_dump() for i in result["students"]]})
 

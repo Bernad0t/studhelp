@@ -1,40 +1,49 @@
-networks:
-  dev:
+version: '3.9'
 
 services:
-  nginx:
-    image: nginx:slim
-    ports:
-      - "8080:80"
-    volumes:
-      - './nginx.conf:/etc/nginx/nginx.conf'
-      - '/etc/letsencrypt:/etc/letsencrypt'
-    depends_on:
-      - backend
-      - frontend
-    networks:
-      - dev
-
-  backend:
-    container_name: backend
-    build:
-      context: ./python_files
-    networks:
-      - dev
-    environment:
-      DATABASE_URL: postgres://postgres:asX77hiv-14@host.docker.internal:5432/stud
-
-  frontend:
-    build:
-      context: ./frontend
-    networks:
-      - dev
-
   db:
-    image: postgres:latest
-    networks:
-      - dev
+    image: postgres:17
+    container_name: db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: asX77hiv-14
       POSTGRES_DB: stud
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ./python_files
+      dockerfile: Dockerfile
+    container_name: backend
+    environment:
+      DATABASE_URL: postgres+asyncpg://postgres:asX77hiv-14@db:5432/stud
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+  
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - frontend
+      - backend
+
+volumes:
+  db_data:

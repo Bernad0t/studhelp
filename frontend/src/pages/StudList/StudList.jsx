@@ -94,7 +94,9 @@ function InsertForm({name_fiedls}){
             if (data[key] === undefined)
                 return
         }
-        setStudent(data)
+        if (isNaN(Number(data.grade)))
+            return
+        setStudent({...data, grade: Number(data.grade)})
         .then(() => setData(getEmpytyObject(keys)))
     }
     return(
