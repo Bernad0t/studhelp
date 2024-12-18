@@ -1,0 +1,33 @@
+.cont_auth{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.auth{
+    width: 500px;
+    padding: 10px;
+}
+
+.auth_submit{
+    width: 100%;
+    height: 40px;
+    margin-top: 10px;
+}
+
+.auth_row{
+    height: 40px;
+    margin-bottom: 10px;
+    width: 80%;
+}
+
+.auth_input{
+    width: 100%;
+    height: 100%;
+    background-color: #AFAFAF;
+    border: 1px solid #000;
+    padding-left: 10px;
+    border-radius: 10px;
+}

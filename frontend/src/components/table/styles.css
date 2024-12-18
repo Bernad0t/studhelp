@@ -1,0 +1,25 @@
+.table_stud{
+    max-height: 100vh;
+    overflow: auto;
+    margin: 20px;
+    padding: 20px;
+    border: 2px solid #000;
+}
+
+.one_row{
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    min-height: 50px;
+    border-bottom: 1px solid #000;
+}
+
+.column{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    width: 16%;
+    border-right: 1px solid #000;
+    border-left: 1px solid #000;
+}
